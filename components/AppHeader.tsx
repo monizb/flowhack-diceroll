@@ -33,6 +33,9 @@ export function AppHeader() {
       )}
 
       <HStack>
+      <Button colorScheme="blue" onClick={() => router.push("/app/roll")}>
+          Dice Roll
+        </Button>
         {session && (
           <Button colorScheme="blue" onClick={() => router.push("/app/collection")}>
             Collection
