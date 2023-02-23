@@ -19,7 +19,7 @@ function Transaction({txId, txInProgress, txStatus, txStatusCode}) {
             <span>
               Transaction Status: 
               <span className="txId">
-                <a href={`https://testnet.flowscan.org/transaction/${txId}`} target="_blank">{txId?.slice(0,8)}...</a>
+                <a href={`https://testnet.flowscan.org/transaction/${txId}`} target="_blank" rel="noreferrer">{txId?.slice(0,8)}...</a>
               </span>
               <kbd>Pending</kbd>
               <br />
@@ -33,7 +33,7 @@ function Transaction({txId, txInProgress, txStatus, txStatusCode}) {
             <span>
               Transaction Status: 
               <span className="txId">
-                <a href={`https://testnet.flowscan.org/transaction/${txId}`} target="_blank">{txId?.slice(0,8)}...</a>
+                <a href={`https://testnet.flowscan.org/transaction/${txId}`} target="_blank" rel="noreferrer">{txId?.slice(0,8)}...</a>
               </span>
               <kbd>Finalized</kbd>
               <br />
@@ -47,7 +47,7 @@ function Transaction({txId, txInProgress, txStatus, txStatusCode}) {
             <span>
               Transaction Status: 
               <span className="txId">
-                <a href={`https://testnet.flowscan.org/transaction/${txId}`} target="_blank">{txId?.slice(0,8)}...</a>
+                <a href={`https://testnet.flowscan.org/transaction/${txId}`} target="_blank" rel="noreferrer">{txId?.slice(0,8)}...</a>
               </span>
               <kbd>Executed</kbd>
               <br />
@@ -76,7 +76,7 @@ function Transaction({txId, txInProgress, txStatus, txStatusCode}) {
     } else if (txStatusCode === 1) {
        return (
         <article>PROBLEM!!!!!!!!!! View problem here: <span className="txId">
-        <a href={`https://testnet.flowscan.org/transaction/${txId}`} target="_blank">{txId?.slice(0,8)}...</a>
+        <a href={`https://testnet.flowscan.org/transaction/${txId}`} target="_blank" rel="noreferrer">{txId?.slice(0,8)}...</a>
       </span></article>
        )
     } else {
