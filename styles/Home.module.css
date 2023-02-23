@@ -114,3 +114,8 @@
     flex-direction: column;
   }
 }
+
+.dice-roll {
+  display: flex;
+  align-items: center;
+}

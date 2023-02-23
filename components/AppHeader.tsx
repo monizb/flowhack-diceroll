@@ -18,19 +18,19 @@ export function AppHeader() {
           </>
         </Text>
       )}
-      <Text> App ID: {process.env.NEXT_PUBLIC_CLIENT_ID}</Text>
+      {/* <Text> App ID: {process.env.NEXT_PUBLIC_CLIENT_ID}</Text>
       <Text> X-Niftory-API-Key: </Text>
       <Text noOfLines={3} maxW="lg">
         {process.env.NEXT_PUBLIC_API_KEY}
-      </Text>
-      {session && (
+      </Text> */}
+      {/* {session && (
         <HStack>
           <Text>Authorization</Text>
           <Button colorScheme="gray" color="black" onClick={onCopy} size="sm">
             Copy Value
           </Button>
         </HStack>
-      )}
+      )} */}
 
       <HStack>
         {session && (
