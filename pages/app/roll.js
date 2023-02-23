@@ -4,6 +4,7 @@ import axios from "axios"
 import * as fcl from "@onflow/fcl"
 import { Button, Spinner, Input } from "@chakra-ui/react"
 import Transaction from "../../components/Transaction"
+import one from "./images/1.jpeg"
 
 fcl
   .config()
@@ -21,6 +22,22 @@ const RollPage = () => {
   const [result, setResult] = useState(null)
   const [quantity, setQuantity] = useState(1)
   const [purpose, setPurpose] = useState("")
+  const [randomImage, setRandomImage] = useState(1)
+
+  useEffect (() => {
+    setInterval(() => {
+      setRandomImage(Math.floor(Math.random() * 6) + 1)
+    }, 100)
+  }, [])
+
+  const dice_map = {
+    1: "https://acharyaplacement-dev.s3.ap-south-1.amazonaws.com/public/random/1.jpeg",
+    2: "https://acharyaplacement-dev.s3.ap-south-1.amazonaws.com/public/random/2.jpeg",
+    3: "https://acharyaplacement-dev.s3.ap-south-1.amazonaws.com/public/random/3.jpeg",
+    4: "https://acharyaplacement-dev.s3.ap-south-1.amazonaws.com/public/random/4.jpeg",
+    5: "https://acharyaplacement-dev.s3.ap-south-1.amazonaws.com/public/random/5.jpeg",
+    6: "https://acharyaplacement-dev.s3.ap-south-1.amazonaws.com/public/random/6.jpeg",
+  }
 
   const rollDice = async () => {
     setTxnInProgress(true)
@@ -60,7 +77,17 @@ const RollPage = () => {
         <Input placeholder="Enter the purpose of the roll" onChange={(e) => setPurpose(e.target.value)} style={{marginTop: 40}} value={purpose} />
       </div>}
       <Transaction txId={id} txInProgress={txnInProgress} txStatus={txStatus} txStatusCode={txStatusCode} />
-      {result && txStatus === 4 && <h1 style={{marginTop: 40}}>Result: {result.join(" ")}</h1>}
+      {txnInProgress && txStatus !== 4 && <div style={{display:"flex", alignItems:"center", marginTop: 30}}>
+        <img src={dice_map[randomImage]} style={{width: 100, height: 100}} />
+        <h1 style={{marginLeft: 15, fontSize: 30}}> x {quantity}</h1>
+        </div>}
+      {result && txStatus === 4 && <div style={{textAlign:"center", paddingLeft: 60, paddingRight: 30}}>
+        <h1>Result: {result.join(" ")}</h1>
+        <br/>
+        <div style={{display: "flex", alignItems: "center", flexWrap: "wrap"}}>
+        {result.map((r) => <img src={dice_map[r]} style={{width: 100, height: 100}} />)}
+        </div>
+        </div>}
       <div style={{display:"flex"}}>
       <Button colorScheme="blue" onClick={rollDice} style={{marginTop: 40, marginRight: 30}}>
         Roll The Dice!
@@ -69,6 +96,8 @@ const RollPage = () => {
         Reset
       </Button>}
       </div>
+      <br/>
+      <br/>
     </AppLayout>
   )
 }

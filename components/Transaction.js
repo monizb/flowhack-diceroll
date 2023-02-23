@@ -64,11 +64,11 @@ function Transaction({txId, txInProgress, txStatus, txStatusCode}) {
               <Button color={"red"} onClick={()=> window.open(`https://testnet.flowscan.org/transaction/${txId}`, "_blank")}>View on Flowscan</Button>
               <br/>
               <br/>
-              <p>SEALED</p>
+              <p><span style={{color: "green", fontWeight: "bold"}}>SEALED</span> ({txId})</p>
               <br />
               <p>Dice Roll Complete! This is now forever on the chain</p>
               <br/>
-            <progress min="0" max="100" value="100">Sealing!</progress>
+            {/* <progress min="0" max="100" value="100">Sealing!</progress> */}
           </div>
           : null}
         </article>
