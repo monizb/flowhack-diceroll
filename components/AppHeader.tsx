@@ -10,7 +10,7 @@ export function AppHeader() {
 
   return (
     <VStack textColor="white" mb="3vh">
-      <Heading><span style={{fontSize: 50}}>⚄</span> DiceMint</Heading>
+      <Heading><span style={{fontSize: 50}}>⚄</span> DiceCraft</Heading>
       <p>Roll on-chain dice and mint the results as a unique NFT!</p>
       {session && (
         <Text>

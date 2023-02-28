@@ -2,7 +2,7 @@ import AppLayout from "../../components/AppLayout"
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import * as fcl from "@onflow/fcl"
-import { Button, Spinner, Input } from "@chakra-ui/react"
+import { Button, Spinner, Input, InputGroup, InputLeftAddon } from "@chakra-ui/react"
 import Transaction from "../../components/Transaction"
 import one from "./images/1.jpeg"
 
@@ -42,6 +42,10 @@ const RollPage = () => {
   }
 
   const rollDice = async () => {
+    if(quantity <= 0 || quantity > 100 || purpose.trim() === "") {
+      alert("Please enter valid quantity and purpose.")
+      return
+    }
     setTxnInProgress(true)
     setTxStatus(-1)
     await axios.post("https://dice-roll-backend.vercel.app/api/flow/roll/quick", { quantity: quantity, purpose: purpose }).then((res) => {
@@ -81,8 +85,12 @@ const RollPage = () => {
     <AppLayout>
       {txnInProgress && txStatus !== 4 && <Spinner />}
       {!txnInProgress && <div>
-        <Input placeholder="Enter the number of dice to roll" onChange={(e) => setQuantity(e.target.value)} style={{marginTop: 40}} value={quantity} />
-        <Input placeholder="Enter the purpose of the roll" onChange={(e) => setPurpose(e.target.value)} style={{marginTop: 40}} value={purpose} />
+        <InputGroup size='lg' style={{marginTop: 40}}>
+    <InputLeftAddon children='No. of dice to roll (Max 100)' color={"black"} />
+    <Input placeholder="Enter the number of dice to roll" onChange={(e) => setQuantity(e.target.value)} value={quantity} />
+  </InputGroup>
+       
+        <Input placeholder="Enter the purpose of the roll (required)" onChange={(e) => setPurpose(e.target.value)} style={{marginTop: 40}} value={purpose} />
       </div>}
       
       {txnInProgress && txStatus !== 4 && <div style={{display:"flex", alignItems:"center", marginTop: 30}}>
