@@ -23,6 +23,8 @@ const RollPage = () => {
   const [quantity, setQuantity] = useState(1)
   const [purpose, setPurpose] = useState("")
   const [randomImage, setRandomImage] = useState(1)
+  const [nftmodelinCreation, setNftmodelinCreation] = useState(false)
+  const [nftModelCreated, setNftModelCreated] = useState(false)
 
   useEffect (() => {
     setInterval(() => {
@@ -44,13 +46,19 @@ const RollPage = () => {
     setTxStatus(-1)
     await axios.post("https://dice-roll-backend.vercel.app/api/flow/roll/quick", { quantity: quantity, purpose: purpose }).then((res) => {
       setId(res.data.message.transactionId)
-      fcl.tx(res.data.message.transactionId).subscribe((tx) => {
+      fcl.tx(res.data.message.transactionId).subscribe(async (tx) => {
         setTxStatus(tx.status)
         setTransaction(tx)
         setTxStatusCode(tx.statusCode);
         if(tx.status === 4) {
           const dice_result = tx.events.find((e) => e.type === "A.0228cfaf738ed8f5.Diceroller.DiceRollSetResult")
           setResult(dice_result.data.result)
+          setNftmodelinCreation(true)
+          await axios.post("https://dice-roll-backend.vercel.app/api/nft/generate", { diceResults: dice_result.data.result.map(i=>Number(i)) }).then((res) => {
+            setNftModelCreated(true)
+          }).catch((err) => {
+            alert("Failed to create NFT model. Please try again later.")
+          })
         }
       })
     }).catch((err) => {
@@ -76,13 +84,15 @@ const RollPage = () => {
         <Input placeholder="Enter the number of dice to roll" onChange={(e) => setQuantity(e.target.value)} style={{marginTop: 40}} value={quantity} />
         <Input placeholder="Enter the purpose of the roll" onChange={(e) => setPurpose(e.target.value)} style={{marginTop: 40}} value={purpose} />
       </div>}
-      <Transaction txId={id} txInProgress={txnInProgress} txStatus={txStatus} txStatusCode={txStatusCode} />
+      
       {txnInProgress && txStatus !== 4 && <div style={{display:"flex", alignItems:"center", marginTop: 30}}>
         <img src={dice_map[randomImage]} style={{width: 100, height: 100}} />
         <h1 style={{marginLeft: 15, fontSize: 30}}> x {quantity}</h1>
         </div>}
-      {result && txStatus === 4 && <div style={{textAlign:"center", paddingLeft: 60, paddingRight: 30}}>
-        <h1>Result: {result.join(" ")}</h1>
+        {nftmodelinCreation && !nftModelCreated && <h1>DICE NFT model being generated <Spinner /></h1>}
+        <Transaction txId={id} txInProgress={txnInProgress} txStatus={txStatus} txStatusCode={txStatusCode} nftModelCreated={nftModelCreated} />
+      {result && txStatus === 4 && <div style={{textAlign:"center", paddingLeft: 60, paddingRight: 30, display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <h1 style={{color: "black", padding: 6, background: "white", borderRadius: 5}}>{result.length} x Dice Roll Result = <span style={{color: "red"}}>{result.join(" ")}</span></h1>
         <br/>
         <div style={{display: "flex", alignItems: "center", flexWrap: "wrap"}}>
         {result.map((r) => <img src={dice_map[r]} style={{width: 100, height: 100}} />)}

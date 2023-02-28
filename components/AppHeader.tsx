@@ -10,7 +10,8 @@ export function AppHeader() {
 
   return (
     <VStack textColor="white" mb="3vh">
-      <Heading>DiceRoll</Heading>
+      <Heading><span style={{fontSize: 50}}>⚄</span> DiceMint</Heading>
+      <p>Roll on-chain dice and mint the results as a unique NFT!</p>
       {session && (
         <Text>
           <>
@@ -33,19 +34,19 @@ export function AppHeader() {
       )} */}
 
       <HStack>
+      {session && (
+          <Button colorScheme="red" onClick={() => router.push("/app/roll")}>
+            Dice Roll
+          </Button>
+        )}
         {session && (
           <Button colorScheme="blue" onClick={() => router.push("/app/collection")}>
-            Collection
+            My Dice NFT Collection
           </Button>
         )}
         <Button colorScheme="blue" onClick={() => router.push("/app/drops")}>
           Drops
         </Button>
-        {session && (
-          <Button colorScheme="blue" onClick={() => router.push("/app/roll")}>
-            Dice Roll
-          </Button>
-        )}
         {session && (
           <Button colorScheme="blue" onClick={() => router.push("/app/wallet")}>
             Wallet

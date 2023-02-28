@@ -78,7 +78,7 @@ const DropPage: ComponentWithAuth = () => {
     <AppLayout>
       {nftModel && (
         <>
-          <Image alt={nftModel.title} boxSize="30vh" src={nftModel.content?.poster?.url}></Image>
+          <Image alt={nftModel.title} boxSize="50vh" src={nftModel.content?.poster?.url} style={{borderRadius: 10, height: "130%"}}></Image>
           <Heading>{nftModel.title}</Heading>
           <Text>{nftModel.description}</Text>
           <Button
@@ -89,6 +89,8 @@ const DropPage: ComponentWithAuth = () => {
           >
             {buttonText}
           </Button>
+          <br />
+          <br />
           {transferError && (
             <Text>
               Something went wrong during transfer. The server responded with:

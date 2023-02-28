@@ -43,13 +43,13 @@ const DropsPage: ComponentWithAuth = () => {
     <AppLayout>
       <Box mx="auto" color="white">
         <VStack>
-          <SimpleGrid columns={2} spacing={10}>
+          <SimpleGrid columns={3} spacing={10}>
             {nftModels?.map((nftModel) => {
               const nftModelImageUrl = nftModel.content?.poster?.url
               return (
                 <Link key={nftModel.id} onClick={() => router.push(`/app/drops/${nftModel.id}`)}>
                   <VStack spacing="2vh">
-                    <Image alt={nftModel.title} boxSize="20vh" src={nftModelImageUrl}></Image>
+                    <Image alt={nftModel.title} boxSize="50vh" src={nftModelImageUrl} style={{borderRadius: 10, height: "130%"}}></Image>
                     <Text>{nftModel.title}</Text>
                   </VStack>
                 </Link>

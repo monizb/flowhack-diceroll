@@ -49,11 +49,7 @@ const NftPage: ComponentWithAuth = () => {
     <AppLayout>
       {model && (
         <>
-          <Image
-            alt={nft.model?.title}
-            src={nft.model?.content?.poster?.url}
-            boxSize="20vh"
-          ></Image>
+           <Image alt={nft.model?.title} boxSize="50vh" src={nft.model?.content?.poster?.url} style={{borderRadius: 10, height: "130%"}}></Image>
           <Heading>{model.title}</Heading>
           <Text>{model.description}</Text>
           <Text>
@@ -61,6 +57,8 @@ const NftPage: ComponentWithAuth = () => {
               ? "Blockchain State: Not yet minted."
               : `Blockchain State: ID=${nft.blockchainId}, Serial=${nft.serialNumber}`}
           </Text>
+          <br/>
+          <br/>
         </>
       )}
     </AppLayout>

@@ -1,4 +1,4 @@
-import { Box, Link, SimpleGrid, VStack } from "@chakra-ui/react"
+import { Box, Link, SimpleGrid, VStack, Image } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 
 import AppLayout from "../../../components/AppLayout"
